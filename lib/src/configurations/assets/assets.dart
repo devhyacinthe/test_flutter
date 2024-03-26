@@ -31,6 +31,7 @@ class AnimationAssets {
   static const _base = BasePaths.baseAnimationPath;
 
   static const search = "$_base/search.json";
+  static const empty = "$_base/empty.json";
 }
 
 class IconAssets {

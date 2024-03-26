@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:random_user/src/configurations/constants.dart';
 import 'package:random_user/src/features/users/widgets/custom_textform_field.dart';
 import 'package:random_user/src/features/users/widgets/primary_button.dart';
@@ -24,6 +25,7 @@ class AddUserScreen extends ConsumerStatefulWidget {
 class _AddUserScreenState extends ConsumerState<AddUserScreen> {
   final _formKey = GlobalKey<FormState>();
   final List<String> genderChoiceList = ['male', 'female'];
+  bool isLoading = false;
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -205,26 +207,36 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    PrimaryButton(
-                        text: "Enregistrer",
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            String gender = _generateGender(genderChoiceList);
-                            String picture = await _loadUserImage(gender);
+                    isLoading
+                        ? SpinKitChasingDots()
+                        : PrimaryButton(
+                            text: "Enregistrer",
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                String gender =
+                                    _generateGender(genderChoiceList);
+                                String picture = await _loadUserImage(gender);
 
-                            User updatedUser = User(
-                                uuid: const Uuid().toString(),
-                                firstName: _firstNameController.text.trim(),
-                                lastName: _lastNameController.text.trim(),
-                                gender: gender,
-                                email: _emailController.text.trim(),
-                                street: _streetController.text.trim(),
-                                city: _cityController.text.trim(),
-                                picture: picture);
+                                User updatedUser = User(
+                                    uuid: const Uuid().toString(),
+                                    firstName: _firstNameController.text.trim(),
+                                    lastName: _lastNameController.text.trim(),
+                                    gender: gender,
+                                    email: _emailController.text.trim(),
+                                    street: _streetController.text.trim(),
+                                    city: _cityController.text.trim(),
+                                    picture: picture);
 
-                            _createUser(updatedUser);
-                          }
-                        })
+                                _createUser(updatedUser);
+
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            })
                   ]),
             ),
           ),

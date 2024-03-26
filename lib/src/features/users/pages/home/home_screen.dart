@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:random_user/src/configurations/assets/assets.dart';
 import 'package:random_user/src/configurations/constants.dart';
 import 'package:random_user/src/configurations/theme/theme.dart';
@@ -39,8 +40,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         final token = ref.read(loadDatabaseProvider);
         if (token == null) {
           ref.read(usersControllerProvider).loadUsers(context: context);
+          setState(() {
+            _getAllUsers();
+          });
           ref.read(initControllerProvider).initLoadDatabaseToken("load");
-          _getAllUsers();
         }
       },
     );
@@ -92,8 +95,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   void initState() {
-    _checkIfDatabaseIsLoaded();
     _getAllUsers();
+    _checkIfDatabaseIsLoaded();
     _initTheme();
     super.initState();
   }
@@ -118,39 +121,40 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           height: 25,
         ),
       ),
-      body: ListView.builder(
-          itemCount: usersListState.length,
-          itemBuilder: (context, index) {
-            return Dismissible(
-              background: Container(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 5.0, horizontal: 15.0),
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      IconAssets.trash,
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: 35,
-                      height: 35,
-                    ),
-                  )),
-              key: Key(UniqueKey().toString()),
-              onDismissed: (direction) {
-                ref
-                    .read(usersControllerProvider)
-                    .deleteUser(context: context, uuid: dataList[index].uuid);
-                setState(() {
-                  dataList.remove(dataList[index]);
-                });
-                ref.read(usersListProvider.notifier).state.removeAt(index);
-              },
-              child: UserCard(user: usersListState[index]),
-            );
-          }),
+      body: usersListState.isEmpty
+          ? Lottie.asset(AnimationAssets.empty)
+          : ListView.builder(
+              itemCount: usersListState.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  background: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 5.0, horizontal: 15.0),
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          IconAssets.trash,
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 35,
+                          height: 35,
+                        ),
+                      )),
+                  key: Key(UniqueKey().toString()),
+                  onDismissed: (direction) {
+                    ref.read(usersControllerProvider).deleteUser(
+                        context: context, uuid: dataList[index].uuid);
+                    setState(() {
+                      dataList.remove(dataList[index]);
+                    });
+                    ref.read(usersListProvider.notifier).state.removeAt(index);
+                  },
+                  child: UserCard(user: usersListState[index]),
+                );
+              }),
     );
   }
 
