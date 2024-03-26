@@ -16,6 +16,8 @@ Pour lancer l'application vous executez dans  l'ordre:
 - flutter pub get
 - flutter run
 
+Si lorsque l'application se lance la liste est vide: quitter l'application totalement et ensuite entrer de nouveau dans l'application "Il s'agit d'un petit bug 🚀🚩"
+
 
 Les ressources utilisées:
 
