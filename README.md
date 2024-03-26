@@ -22,3 +22,9 @@ Les ressources utilisées:
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
+
+## Ressenti
+Projet relativement simple à implémenter, j'aurai aimé y ajouter quelques fonctionnalité supplémentaires mais le temps à manqué
+
+## Temps
+J'ai travail pendant 3 jours ouvrables
