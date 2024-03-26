@@ -1,16 +1,19 @@
-# random_user
+# Application RandomUser
 
-A new Flutter project.
+Application de test flutter 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Pour lancer l'application vous executez dans  l'ordre:
 
-A few resources to get you started if this is your first Flutter project:
+
+- flutter clean 
+- flutter pub get
+- flutter run
+
+
+Les ressources utilisées:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
