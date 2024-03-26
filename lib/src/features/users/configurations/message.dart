@@ -1,9 +1,9 @@
 class FailureMessage {
   static const jsonParseFailed = "JSON parsing failed";
-  static const addUser = "Une erreur s'est produite";
+  static const addUser = "l'utilisteur n'a pas été ajouté";
   static const loadUsers = "Une erreur s'est produite";
-  static const updateUser = "Une erreur s'est produite";
-  static const deleteUser = "Une erreur s'est produite";
+  static const updateUser = "l'utilisteur n'a pas été modifié";
+  static const deleteUser = "l'utilisteur n'a pas été supprimé";
 }
 
 class SuccessMessage {

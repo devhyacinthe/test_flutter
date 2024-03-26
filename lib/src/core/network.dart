@@ -8,8 +8,6 @@ import 'core.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart';
 
-/// Watch apiProvider to make sure to have the latest authToken passed.
-
 final networkRepositoryProvider = StateProvider((ref) {
   return NetworkRepository();
 });

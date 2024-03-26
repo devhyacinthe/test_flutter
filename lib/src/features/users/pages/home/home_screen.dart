@@ -11,7 +11,6 @@ import 'package:random_user/src/features/users/widgets/user_card.dart';
 import 'package:random_user/src/global/controllers/init_controller.dart';
 import 'package:random_user/src/global/providers/user_list_provider.dart';
 import 'package:random_user/src/models/user.dart';
-import 'package:random_user/src/utils/alert.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -31,7 +30,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     setState(() {
       dataList = usersList;
     });
-    ref.read(usersListProvider.notifier).state.addAll(dataList);
+    ref.read(usersListProvider.notifier).state.addAll(usersList);
   }
 
   _checkIfDatabaseIsLoaded() {
@@ -39,9 +38,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       (value) {
         final token = ref.read(loadDatabaseProvider);
         if (token == null) {
-          ref.read(initControllerProvider).initLoadDatabaseToken("load");
-
           ref.read(usersControllerProvider).loadUsers(context: context);
+          ref.read(initControllerProvider).initLoadDatabaseToken("load");
           _getAllUsers();
         }
       },
@@ -197,26 +195,5 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         )
       ],
     );
-  }
-
-  Future<bool> _showDialogExitApp(BuildContext context) async {
-    bool exitApp = await showDialog(
-        context: context,
-        builder: (context) => CustomDialog(
-              header: SvgPicture.asset(IconAssets.alert,
-                  color: Theme.of(context).colorScheme.secondary,
-                  width: 40,
-                  height: 40),
-              title: "Quitter",
-              description: AppText.quitDialogDescription,
-              onDone: () {
-                ref
-                    .read(usersControllerProvider)
-                    .removeUserInDatabase(context: context);
-                ref.read(initControllerProvider).clearLoadDatabaseToken();
-              },
-            ));
-
-    return exitApp;
   }
 }

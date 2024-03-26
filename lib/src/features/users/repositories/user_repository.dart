@@ -56,7 +56,6 @@ class UsersRepository {
 
   FutureEither<String> loadImage(String gender) async {
     final result = await _api.getRequest(url: "${EndPoints.getImage}$gender");
-
     return result.fold((Failure failure) {
       log(failure.message, name: _name);
       return Left(failure);

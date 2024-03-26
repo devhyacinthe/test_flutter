@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:random_user/src/configurations/constants.dart';
 import 'package:random_user/src/features/users/widgets/custom_textform_field.dart';
 import 'package:random_user/src/features/users/widgets/primary_button.dart';
 import 'package:uuid/uuid.dart';
@@ -76,7 +77,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Nom & Prénom(s)',
+                        Text(AppText.nameTextFieldLabel,
                             style: Theme.of(context).textTheme.bodyLarge),
                         const SizedBox(
                           height: 5,
@@ -128,7 +129,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Email',
+                        Text(AppText.emailTextFieldLabel,
                             style: Theme.of(context).textTheme.bodyLarge),
                         const SizedBox(
                           height: 5,
@@ -155,7 +156,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Rue',
+                        Text(AppText.streetTextFieldLabel,
                             style: Theme.of(context).textTheme.bodyLarge),
                         const SizedBox(
                           height: 5,
@@ -182,7 +183,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Ville',
+                        Text(AppText.cityTextFieldLabel,
                             style: Theme.of(context).textTheme.bodyLarge),
                         const SizedBox(
                           height: 5,

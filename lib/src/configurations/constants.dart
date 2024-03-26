@@ -8,6 +8,12 @@ class AppRouteName {
 
 class AppText {
   AppText._();
+
+  static const String nameTextFieldLabel = "Nom & Prénom(s)";
+  static const String emailTextFieldLabel = "Email";
+  static const String streetTextFieldLabel = "Rue";
+  static const String cityTextFieldLabel = "Ville";
+
   static const String onBoardingDescription =
       "Application utilisant l'API Random user pour afficher des utilisateurs aléatoire";
 

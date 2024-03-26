@@ -3,6 +3,7 @@ import 'dart:convert';
 class User {
   final String? uuid, gender, firstName, lastName, street, city, email, picture;
 
+  /// Empty factory for user Model
   factory User.empty() {
     return User(
         uuid: "",

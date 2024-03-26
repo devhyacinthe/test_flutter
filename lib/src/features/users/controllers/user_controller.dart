@@ -46,7 +46,7 @@ class UsersController {
         SnackBarService.showSnackBar(
             duration: const Duration(seconds: 2),
             context: context,
-            message: FailureMessage.addUser,
+            message: FailureMessage.loadUsers,
             backgroundColor: Colors.redAccent);
       }
       return "";
@@ -66,7 +66,6 @@ class UsersController {
       users.add(User.fromMapDatabase(user));
     }
 
-    debugPrint("$users");
     if (context != null) {
       return users;
     }
@@ -153,25 +152,5 @@ class UsersController {
         context.pop();
       }
     }
-  }
-
-  Future<void> removeUserInDatabase({BuildContext? context}) async {
-    final result = await _repository.loadUsers();
-    return result.fold((failure) {
-      if (context != null) {
-        SnackBarService.showSnackBar(
-            duration: const Duration(seconds: 2),
-            context: context,
-            message: FailureMessage.loadUsers,
-            backgroundColor: Colors.redAccent);
-      }
-    }, (users) async {
-      if (context != null) {
-        for (var user in users) {
-          var data = user.toMap();
-          await DatabaseService.deleteUser(data['uuid']);
-        }
-      }
-    });
   }
 }
